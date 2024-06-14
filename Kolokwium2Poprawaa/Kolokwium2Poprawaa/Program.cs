@@ -1,4 +1,5 @@
 using Kolokwium2Poprawaa.Database;
+using Kolokwium2Poprawaa.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>(
     opttions => opttions.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
-// builder.Services.AddScoped<IDbService, DbService>();
+builder.Services.AddScoped<IDbServices, DbServices>();
 
 var app = builder.Build();
 

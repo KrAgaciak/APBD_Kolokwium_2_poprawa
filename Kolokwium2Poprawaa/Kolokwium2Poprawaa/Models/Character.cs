@@ -13,6 +13,6 @@ public class Character
     public int CurrentWeight { get; set; }
     public int MaxWeight { get; set; }
 
-    public ICollection<Backpack> Orders { get; set; } = new HashSet<Backpack>();
+    public ICollection<Backpack> Backpack { get; set; } = new HashSet<Backpack>();
     public ICollection<Character_Titles> Character_Titles { get; set; } = new HashSet<Character_Titles>();
 }
