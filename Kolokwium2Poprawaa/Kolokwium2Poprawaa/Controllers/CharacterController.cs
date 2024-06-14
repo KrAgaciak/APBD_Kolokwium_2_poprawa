@@ -45,4 +45,33 @@ public class CharacterController : ControllerBase
             }).ToList()
         }));
     }
+
+    [HttpPost("characters/{characterId}/backpacks")]
+    public async Task<IActionResult> AddNewOrder(int characterId, int[] itemIdList)
+    {
+        var items = new List<NewBackpackDTO>();
+        
+        if (!await _dbService.DoesCharacterExist(characterId))
+            return NotFound($"Character with given ID - {characterId} doesn't exist");
+        foreach (var itemId in itemIdList)
+        {
+            var item = await _dbService.GetItemById(itemId);
+            if (item == null)
+                return NotFound($"Item with given ID - {itemId} doesn't exist");
+
+            items.Add(new NewBackpackDTO
+            {
+                ammount = 1,
+                characterId = characterId,
+                itemId = itemId
+            });
+
+            _dbService.AddNewItem(itemId, characterId);
+        }
+
+        return Ok(items);
+
+    }
+
+
 }
